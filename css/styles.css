@@ -10,6 +10,7 @@
   --color-navy-blue-modal: #2e2f4266;
   --color-grey: #2e2f42b3;
   --color-white: #ffffff;
+  --color-modal: #fcfcfc;
   --box-shadow-card: 0px 1px 6px rgba(46, 47, 66, 0.08),
     0px 1px 1px rgba(46, 47, 66, 0.16), 0px 2px 1px rgba(46, 47, 66, 0.08);
   --box-shadow-btn: 0px 3px 1px rgba(0, 0, 0, 0.1),
@@ -38,6 +39,7 @@ img {
 
 button {
   display: block;
+  cursor: pointer;
 }
 
 body {
@@ -107,11 +109,29 @@ body {
   line-height: 1.5;
   letter-spacing: 0.02em;
   color: var(--color-navy-blue);
+
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.header-link:hover,
-.header-link:focus {
+.header-link:is(:hover, :focus) {
   color: var(--color-ocean);
+}
+
+.active {
+  position: relative;
+  color: var(--color-ocean);
+}
+
+.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -24px;
+  width: 100%;
+  height: 4px;
+  border-radius: 2px;
+  background-color: var(--color-ocean);
+  display: block;
 }
 
 .header-address {
@@ -129,10 +149,11 @@ body {
   line-height: 1.5;
   letter-spacing: 0.02em;
   color: var(--color-slate);
+
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.header-address-link:hover,
-.header-address-link:focus {
+.header-address-link:is(:hover, :focus) {
   color: var(--color-ocean);
 }
 
@@ -175,14 +196,14 @@ body {
   color: var(--color-white);
   background-color: var(--color-iris);
   border-radius: 4px;
-  cursor: pointer;
   border: 0;
   padding: 16px 32px;
   margin: 0 auto;
+
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.hero-btn:hover,
-.hero-btn:focus {
+.hero-btn:is(:hover, :focus) {
   background-color: var(--color-ocean);
 }
 
@@ -313,6 +334,7 @@ body {
   align-items: center;
   justify-content: center;
   color: var(--color-cloud);
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .team-soc-icon {
@@ -353,6 +375,9 @@ body {
   justify-content: center;
   color: var(--color-light-slate);
   border: 1px solid var(--color-light-slate);
+
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    border 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .customer-icon {
@@ -401,8 +426,6 @@ body {
   width: 264px;
 }
 
-.footer-soc {
-}
 .footer-soc-title {
   font-weight: 500;
   font-size: 16px;
@@ -430,6 +453,7 @@ body {
   align-items: center;
   justify-content: center;
   color: var(--color-cloud);
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .footer-soc-icon {
@@ -445,8 +469,8 @@ body {
 }
 
 /* ---------------------------------PORTFOLIO FILTERS-------------------------------- */
-.portfolio-container {
-  padding-top: 96px;
+.portfolio {
+  padding: 96px 0 120px;
 }
 
 .filters-list {
@@ -468,13 +492,16 @@ body {
   background: var(--color-cloud);
   border: 1px solid var(--color-cornflower);
   border-radius: 4px;
-  cursor: pointer;
+
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    border 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.filters-btn:hover,
-.filters-btn:focus {
+.filters-btn:is(:hover, :focus) {
   color: var(--color-white);
-  background: var(--color-ocean);
+  background-color: var(--color-ocean);
   border: 1px solid var(--color-ocean);
   box-shadow: var(--box-shadow-btn);
 }
@@ -488,10 +515,41 @@ body {
 
 .exemple-item {
   width: calc((100% - 48px) / 3);
+
+  transition: box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.exemple-item:hover {
+.exemple-item:is(:hover, :focus) {
   box-shadow: var(--box-shadow-card);
+}
+
+.exemple-link {
+  display: block;
+}
+
+.exemple-cover-wrap {
+  position: relative;
+  overflow: hidden;
+}
+
+.exemple-cover-text {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  color: var(--color-cloud);
+  background-color: var(--color-iris);
+  padding: 32px 40px;
+  transform: translateY(100%);
+
+  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.exemple-link:is(:hover, :focus) .exemple-cover-text {
+  transform: translateY(0);
 }
 
 .card-tumb {
@@ -514,4 +572,36 @@ body {
   line-height: 1.5;
   letter-spacing: 0.02em;
   color: var(--color-slate);
+}
+
+/* ---------------------------------PORTFOLIO EXEMPLE-------------------------------- */
+.backdrop {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--color-navy-blue-modal);
+}
+
+.modal {
+  position: absolute;
+  width: 408px;
+  min-height: 576px;
+  background-color: var(--color-modal);
+  border-radius: 4px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 30px;
+}
+
+.modal-btn-close{
+  width: 24px;
+  height: 24px;
+  background-color: var(--color-cornflower);
+  border-radius: 4px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
