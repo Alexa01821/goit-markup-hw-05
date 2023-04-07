@@ -65,6 +65,10 @@ body {
   padding-bottom: 120px;
 }
 
+.no-scroll {
+  overflow: hidden;
+}
+
 /* ---------------------------------HEADER-------------------------------- */
 .header {
   border-bottom: 1px solid var(--color-cornflower);
@@ -574,13 +578,16 @@ body {
   color: var(--color-slate);
 }
 
-/* ---------------------------------PORTFOLIO EXEMPLE-------------------------------- */
+/* ---------------------------------MODAL-------------------------------- */
 .backdrop {
   position: fixed;
   top: 0;
   width: 100%;
   height: 100%;
   background: var(--color-navy-blue-modal);
+
+  transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    visibility 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .modal {
@@ -591,17 +598,41 @@ body {
   border-radius: 4px;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  padding: 30px;
+  transform: translate(-50%, -50%) scale(1) rotate(0);
+  opacity: 100%;
+  padding: 24px;
+
+  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1),
+  opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.modal-btn-close{
+.backdrop.is-hidden .modal {
+  transform: translate(-50%, -50%) scale(2) rotate(270deg);
+  opacity: 20%;
+}
+
+.modal-btn-close {
   width: 24px;
   height: 24px;
   background-color: var(--color-cornflower);
-  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-left: auto;
+
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    border 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modal-btn-close:is(:hover, :focus) {
+  background-color: var(--color-ocean);
+  border: 0px;
+}
+
+.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
 }
